@@ -202,6 +202,7 @@ module StripeMock
         amount: 1,
         currency: currency,
         created: 1409165988,
+        description: nil,
         object: "refund",
         balance_transaction: "txn_4fWh2RKvgxcXqV",
         metadata: {},
