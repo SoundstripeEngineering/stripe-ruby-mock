@@ -324,7 +324,8 @@ module StripeMock
           object: "list",
           total_count: lines.count,
           url: "/v1/invoices/#{in_id}/lines",
-          data: lines
+          data: lines,
+          has_more: true
         },
         subtotal: lines.map {|line| line[:amount]}.reduce(0, :+),
         total: lines.map {|line| line[:amount]}.reduce(0, :+),
