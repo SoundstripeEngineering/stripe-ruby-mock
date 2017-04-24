@@ -372,6 +372,7 @@ module StripeMock
           end: 1349738920
         },
         quantity: nil,
+        subscription_item: nil,
         subscription: nil,
         plan: nil,
         description: "Test invoice item",
