@@ -133,8 +133,15 @@ module StripeMock
       id = "#{StripeMock.global_id_prefix}#{prefix}_#{@balance_transaction_counter += 1}"
       amount = params[:amount]
       unless amount.nil?
-        # Fee calculation
-        params[:fee] ||= (30 + (amount.abs * 0.029).ceil) * (amount > 0 ? 1 : -1)
+        # Refunds can be under 50 cents, so this needs to account for those in the same way Stripe does.
+        # TODO: If this is under 50, but is the remaining amount of a charge, it will still refund all the
+        # remaining stripe fees. This does not account for that.
+        params[:fee] ||= if amount.abs < 50
+          0
+        else
+          # Fee calculation
+          (30 + (amount.abs * 0.029).round) * (amount > 0 ? 1 : -1)
+        end
       end
       @balance_transactions[id] = Data.mock_balance_transaction(params.merge(id: id))
       id
