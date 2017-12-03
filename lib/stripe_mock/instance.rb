@@ -143,6 +143,7 @@ module StripeMock
           (30 + (amount.abs * 0.029).round) * (amount > 0 ? 1 : -1)
         end
       end
+      params[:net] = amount - (params[:fee] || 0)
       @balance_transactions[id] = Data.mock_balance_transaction(params.merge(id: id))
       id
     end
